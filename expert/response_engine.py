@@ -1,4 +1,3 @@
-# response_engine.py
 from typing import List, Dict, Tuple
 from expert.knowledge_base import EVENT_MESSAGES, normalize_event
 
