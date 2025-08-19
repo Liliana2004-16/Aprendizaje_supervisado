@@ -7,16 +7,18 @@ from sklearn.pipeline import Pipeline
 import joblib
 
 def train():
-    # Cargar dataset
+    
     df = pd.read_csv("data/viajes.csv")
+
+    df["Evento"] = df["Evento"].str.strip().str.lower()
+    df["Evento"] = df["Evento"].replace("sin evento", "ninguno")
 
     # Variables de entrada y salida
     X = df[["Distancia_km", "Tiempo_base_min", "Evento"]]
     y = df["Tiempo_real_min"]
 
-    # Preprocesamiento: convertir 'Evento' en variables categóricas
     preprocessor = ColumnTransformer(
-        transformers=[("cat", OneHotEncoder(), ["Evento"])],
+        transformers=[("cat", OneHotEncoder(handle_unknown="ignore"), ["Evento"])],
         remainder="passthrough"
     )
 
